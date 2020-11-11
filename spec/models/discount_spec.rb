@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-class DiscountTest < ActiveSupport::TestCase
+RSpec.describe Discount do 
   describe 'Relationships' do
     it {should belong_to :merchant}
   end 
@@ -14,8 +14,10 @@ class DiscountTest < ActiveSupport::TestCase
     it '.percentage_display' do 
       merchant_1 = Merchant.create!(name: 'Megans Marmalades', address: '123 Main St', city: 'Denver', state: 'CO', zip: 80218)
       discount1 = merchant_1.discounts.create!(percent_off: 0.10, item_requirement: 5)
+      discount2 = merchant_1.discounts.create!(percent_off: 0.50, item_requirement: 10)
       
       expect(discount1.percentage_display).to eq(10)
+      expect(discount2.percentage_display).to eq(50)
     end
   end
 end 

@@ -34,5 +34,19 @@ RSpec.describe 'Merchant Dashboard' do
         expect(page).to have_content("Get 15% off of orders of 15 items or more")
       end 
     end
+
+    it 'I see a flash message if I choose incorrect values' do
+      visit "/merchant/#{@merchant_1.id}/discounts/#{@discount1.id}/edit"
+      
+      expect(page).to have_field("discount_percent_off")
+      expect(page).to have_field("discount_item_requirement")
+
+      fill_in "discount_percent_off", with: 20
+      fill_in "discount_item_requirement", with: 5.05
+
+      click_button 'Update Discount'
+
+      expect(page).to have_content("Please select a percentage between 0 and 1, and a item requirement greater than 0")
+    end
   end 
 end

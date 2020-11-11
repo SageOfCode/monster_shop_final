@@ -27,5 +27,19 @@ RSpec.describe 'New Disocunt Creation' do
 
       click_button 'Create Discount'
     end
+
+    it 'I see a flash message if I choose incorrect values' do
+      visit "/merchant/discounts/new"
+      
+      expect(page).to have_field("discount_percent_off")
+      expect(page).to have_field("discount_item_requirement")
+
+      fill_in "discount_percent_off", with: 20
+      fill_in "discount_item_requirement", with: 5.05
+
+      click_button 'Create Discount'
+
+      expect(page).to have_content("Please select a percentage between 0 and 1, and a item requirement greater than 0")
+    end
   end
 end
