@@ -18,13 +18,19 @@ RSpec.describe 'Merchant Dashboard' do
       click_button "Log In"
     end 
 
-    it 'I see a link to manage my discounts' do
+    it 'I see a link to create new discounts' do
       visit "/merchant/#{@merchant_1.id}/discounts/index"
 
       expect(page).to have_link("Create a Bulk Discount")
       click_link("Create a Bulk Discount")
 
       expect(current_path).to eq("/merchant/discounts/new")
+      fill_in :discount_percent_off, with: 0.10
+      fill_in :discount_item_requirement, with: 10
+      click_button "Create Discount"
+      
+      save_and_open_page
+      expect(page).to have_content("Get 10% off of orders of 10 items or more")
     end 
 
     it 'I see each of my discounts with a button to edit that discount' do

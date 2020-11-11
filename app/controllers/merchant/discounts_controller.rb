@@ -10,6 +10,14 @@ class Merchant::DiscountsController < ApplicationController
   end
 
   def create 
+    @merchant = current_user.merchant
+    @discount = @merchant.discounts.new(discount_params)
+    if @discount.save
+      redirect_to "/merchant/#{@merchant.id}/discounts/index"
+    else
+      flash[:notice] = "Please select a percentage between 0 and 1, and a item requirement greater than 0"
+      render :new
+    end 
   end 
 
   def edit 
@@ -21,7 +29,12 @@ class Merchant::DiscountsController < ApplicationController
     discount = Discount.find(params[:discount_id])
     discount.update(discount_params)
     merchant = discount.merchant
-    redirect_to "/merchant/#{merchant.id}/discounts/index"
+     if discount.save
+      redirect_to "/merchant/#{merchant.id}/discounts/index"
+    else
+      flash[:notice] = "Please select a percentage between 0 and 1, and a item requirement greater than 0"
+      render :new
+    end 
   end
 
   def delete 
