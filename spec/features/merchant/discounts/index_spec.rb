@@ -29,7 +29,6 @@ RSpec.describe 'Merchant Dashboard' do
       fill_in :discount_item_requirement, with: 10
       click_button "Create Discount"
       
-      save_and_open_page
       expect(page).to have_content("Get 10% off of orders of 10 items or more")
     end 
 
