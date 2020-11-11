@@ -26,11 +26,11 @@ class Merchant::DiscountsController < ApplicationController
   end
 
   def update
-    discount = Discount.find(params[:discount_id])
-    discount.update(discount_params)
-    merchant = discount.merchant
-     if discount.save
-      redirect_to "/merchant/#{merchant.id}/discounts/index"
+    @discount = Discount.find(params[:discount_id])
+    @discount.update(discount_params)
+    @merchant = @discount.merchant
+     if @discount.save
+      redirect_to "/merchant/#{@merchant.id}/discounts/index"
     else
       flash[:notice] = "Please select a percentage between 0 and 1, and a item requirement greater than 0"
       render :new
