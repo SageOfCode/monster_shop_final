@@ -1,3 +1,3 @@
 <h1>Create a New Discount</h1>
 
-<%= render partial: 'discount_form' %>
+<%= render partial: 'discount_form', locals: { path: "/merchant/#{current_user.id}/discounts?merchant_id=#{current_user.merchant.id}", method: :post, button_text: "Create Discount" } %>
