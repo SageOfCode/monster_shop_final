@@ -9,6 +9,7 @@
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw">
       <p>Price: <%= number_to_currency(item.price) %></p>
       <% unless item.discount(cart.count_of(item.id)) == 1 %>
+      <%# <% unless item.has_discount?(cart.count_of(item.id)) %> %>
         <p>Price with Discount: <%= number_to_currency(item.discounted_price(cart.count_of(item.id))) %></p>
       <% end %> 
       <p>Quantity: <%= cart.count_of(item.id) %></p>

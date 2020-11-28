@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get :root, to: 'welcome#index'
+  # resources :root, as: :weclome
 
   resources :merchants do
     resources :items, only: [:index]
@@ -9,9 +10,14 @@ Rails.application.routes.draw do
   resources :items, only: [:index, :show] do
     resources :reviews, only: [:new, :create]
   end
+  # get '/items', to: 'items#index'
+  # get '/items/:item_id', to: 'items#show', as: :item
+  # post '/items/:item_id/reviews', to: 'reviews#create'
+  # get '/items/:item_id/reviews/new', to: 'reviews#new'
 
   resources :reviews, only: [:edit, :update, :destroy]
 
+  # resources :cart, only: [:show]
   get '/cart', to: 'cart#show'
   post '/cart/:item_id', to: 'cart#add_item'
   delete '/cart', to: 'cart#empty'
